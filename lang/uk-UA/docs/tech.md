@@ -1,6 +1,6 @@
 # Техническая информация
 
-## Распространение
+## Розповсюджувач
 
 Для некоторых модпаков были опубликованы обновления без ведома авторов, которые добавляли вредоносные моды как зависимость. Эти обновления модпаков были заархивированы сразу после загрузки, то есть они *не отображаются в веб-интерфейсе, а только через API.*
 
@@ -10,13 +10,13 @@
 
 ### Известные нам затронутые моды и плагины
 
-Примечание: Этот список **не полный**. Он был составлен в первые дни
+Примічання: Этот список **не полный**. Он был составлен в первые дни
 расследования, но мы быстро поняли, что масштабы этого были намного больше, чем мы думали,
 потому сделав отслеживание отдельных случаев бессмысленным. Он останется здесь на память.
 
-Посмотрите также [список](https://support.curseforge.com/en/support/solutions/articles/9000228509-june-2023-infected-mods-detection-tool/) затронутых проектов на CurseForge.
+Подивіться також [список](https://support.curseforge.com/en/support/solutions/articles/9000228509-june-2023-infected-mods-detection-tool/) затронутих проеків на CurseForge.
 
-|мод/плагин|ссылки(-а)|SHA1|"Распространитель"|
+|Мод/Плагін|Посилання|SHA1|"Розповсюджувач"|
 |---|---|---|---|
 |Skyblock Core|[www.curseforge.com/minecraft/mc-mods/skyblock-core/files/4570565](https://www.curseforge.com/minecraft/mc-mods/skyblock-core/files/4570565) |`33677CA0E4C565B1F34BAA74A79C09A3B690BF41`|Luna Pixel Studios|
 |Dungeonz|[legacy.curseforge.com/minecraft/mc-mods/dungeonx/files/4551100 (removed)](https://legacy.curseforge.com/minecraft/mc-mods/dungeonx/files/4551100) |`2DB855A7F40C015F8C9CA7CBAB69E1F1AAFA210B`|fractureiser|
@@ -66,9 +66,9 @@ static void _1685f49242dd46ef9c553d8af1a4e0bb() {
 ```
 
 Это:
-1. Создаёт `URLClassLoader` с URL'ом `http://[85.217.144.130:8080]/dl` ([shodan](https://www.shodan.io/host/85.217.144.130))
-2. Загружает класс `Utility` из classloader'а, грузит код из интернета
-3. Вызывает метод `run` у `Utility`, передача строкового аргумента, отличающегося для каждого зараженного мода (!). Например:
+1. Створює `URLClassLoader` з URL'ом `http://[85.217.144.130:8080]/dl` ([shodan](https://www.shodan.io/host/85.217.144.130))
+2. Завантажує клас `Utility` з classloader'у, грузить код з інтернету
+3. Викликає метод `run` у `Utility`, передача строкового аргументу, відрізняючого для кожного шкідливого моду (!). Наприклад:
     * Skyblock Core: "`-74.-10.78.-106.12`"
     * Dungeonz: "`-114.-18.38.108.-100`"
     * HavenElytra: "`-114.-18.38.108.-100`"
@@ -78,7 +78,7 @@ static void _1685f49242dd46ef9c553d8af1a4e0bb() {
 
 Создание загрузчика классов жестко привязано к этому URL-адресу и не использует URL-адрес Cloudflare, используемый 1-ой ступенью. Поскольку этот IP-адрес теперь отключен, значит, полезная нагрузка 0-ой ступени, *о которой мы на данный момент знаем*, больше не работает.
 
-## Ступень 1 (`dl.jar`)
+## Ступінь 1 (`dl.jar`)
 
 SHA-1: `dc43c4685c3f47808ac207d1667cc1eb915b2d82`
 
@@ -101,7 +101,7 @@ SHA-1: `dc43c4685c3f47808ac207d1667cc1eb915b2d82`
   (`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`), чтобы запустить себя, или,
   в противном случае, пытается добавить себя в папку `Windows\Start Menu\Programs\Startup`
 
-## Вторая ступень (`lib.jar` или `libWebGL64.jar`)
+## Друга ступень (`lib.jar` или `libWebGL64.jar`)
 
 Известные хэши sha1:
 * `52d08736543a240b0cbbbf2da03691ae525bb119`
@@ -124,7 +124,7 @@ https://gist.github.com/SilverAndro/a992f85bec29bb248c354ccf5d2206fe
     5. Загружает и вызывает статический метод `dev.neko.nekoclient.Client#start(InetAddress, refFileBytes)`
     6. Спит 5 секунд
 
-## Третья ступень (`client.jar`)
+## Третя ступень (`client.jar`)
 
 sha-1: `c2d0c87a1fe99e3c44a52c48d8bcf65a67b3e9a5`
 sha-1: `e299bf5a025f5c3fff45d017c3c2f467fa599915`
